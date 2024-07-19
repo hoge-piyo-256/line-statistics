@@ -12,6 +12,7 @@
     position: fixed;
     background: white;
     padding: 10px;
+    overflow: scroll;
 " id="dialog">
             トーク履歴を選択してください<br>
             <input id="fileInput" type="file">
@@ -50,7 +51,8 @@
 border: 2px solid red;
 padding: 10px;
 border-radius: 5px;
-">
+visibility: hidden;
+" id="main">
             <div style="
 font-size: 2rem;
 ">
@@ -564,6 +566,7 @@ margin: 10px;
             document.getElementById('back').onclick = () => {
                 document.getElementById('dialog').style.visibility = 'visible';
                 document.getElementById('usersAreaContainer').style.visibility = 'visible';
+                document.getElementById('main').style.visibility = 'hidden';
             }
 
             let original = '';
@@ -578,10 +581,14 @@ margin: 10px;
                 reader.onload = ()=>{
                     original = reader.result;
 
-                    array = initialData(original);
+                    try {
+                        array = initialData(original);
+                    } catch {
+                        return;
+                    }
                     statistics = new Statistics();
 
-                    document.getElementById('usersArea').innerHTM = '';
+                    document.getElementById('usersArea').innerHTML = '';
 
                     getUsers(array).map((a)=>{
                         let button = document.createElement('div');
@@ -613,6 +620,7 @@ margin: 10px;
             function show(target) {
                 document.getElementById('dialog').style.visibility = 'hidden';
                 document.getElementById('usersAreaContainer').style.visibility = 'hidden';
+                document.getElementById('main').style.visibility = 'visible';
                 // ユーザー名
                 document.getElementById('name').innerText = target;
                 // 発言数
@@ -675,6 +683,14 @@ margin: 10px;
             }
 
             function initialData(data) {
+                // LINE のトーク履歴か確認
+                if(!/\[LINE\] .+のトーク履歴/.test(data.split('\n')[0])) {
+                    if(!confirm('ファイルを正常に読み込めませんでした。原因として次のことが挙げられます。\n・読み込もうとしたファイルが LINE のトーク履歴でない\n・LINE の言語が日本語でない\n強制的に読み込みますか？強制的に読み込むと正確な数値が取得できない可能性があります。')) {
+                        document.getElementById('usersAreaContainer').style.visibility = 'hidden';
+                        throw new Error('ファイルを正しく読み込めませんでした。');
+                    }
+                }
+
                 // data1 元データからはじめ2行を削除
                 let data1 = '';
                 data.split('\n').map((e,f)=>{
@@ -715,7 +731,7 @@ margin: 10px;
                 // 「^.*がアルバムにコンテンツを追加しました$」を除外
                 let data4 = [];
                 data4 = data3.filter((e)=>{
-                    return (!/^グループ通話が終了しました。$/.test(e[2]) && !/^グループ音声通話が開始されました。$/.test(e[2]) && !/^.+がアルバムにコンテンツを追加しました$/.test(e[2]))
+                    return (!/^グループ通話が終了しました。$/.test(e[2]) && !/^グループ音声通話が開始されました。$/.test(e[2]) && !/^.+がアルバムにコンテンツを追加しました$/.test(e[2]));
                 }
                 );
 
