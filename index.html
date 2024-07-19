@@ -303,6 +303,17 @@ margin: 10px;
                 </div>
             </div>
         </div>
+        <div style="
+        margin: 10px;
+        background: red;
+        padding: 10px;
+        width: max-content;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        " id="back">
+            ユーザー選択に戻る
+        </div>
         <script>
             class Statistics {
                 getSend(data, user) {
@@ -548,6 +559,11 @@ margin: 10px;
                     )
                     return output;
                 }
+            }
+
+            document.getElementById('back').onclick = () => {
+                document.getElementById('dialog').style.visibility = 'visible';
+                document.getElementById('usersAreaContainer').style.visibility = 'visible';
             }
 
             let original = '';
