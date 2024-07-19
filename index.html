@@ -1,0 +1,712 @@
+<html>
+    <head></head>
+    <body style="
+    font-family: UD デジタル 教科書体 N-R;
+    --var-color: red;
+    font-size: 1.25rem;
+    margin: 0;
+">
+        <div style="
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: white;
+    padding: 10px;
+" id="dialog">
+            トーク履歴を選択してください<br>
+            <input id="fileInput" type="file">
+            <div style="
+    border: gray 1px solid;
+    background: #f0f0f0;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 10px;
+">
+                <span>トーク履歴を保存する方法(Android)</span>
+                <br>
+                <span style="
+    font-size: 1rem;
+">
+                    1. LINEアプリを開く<br>
+                    2. 統計を取得したい友だち・グループを選択<br>
+                    3. 右上の ≡ を押す<br>
+                    4. 設定を開く<br>
+                    5. 「トーク履歴を送信」を押す<br>6. ファイルを好きな場所に保存する
+                </span>
+            </div>
+            <div id="usersAreaContainer" style="
+    border: 2px solid;
+    padding: 15px;
+    width: max-content;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px 3px gray;
+    visibility: hidden;
+    ">
+                統計を見たいユーザーを選択してください。
+    <div id="usersArea"></div>
+            </div>
+        </div>
+        <div style="
+border: 2px solid red;
+padding: 10px;
+border-radius: 5px;
+">
+            <div style="
+font-size: 2rem;
+">
+                <span id="name">誰でもない人</span>
+                の統計
+            </div>
+            <div style="
+display: flex;
+">
+                <div style="
+width: 100%;
+">
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        <div>
+                            発言数<span id="send">0</span>
+                        </div>
+                        <div>
+                            スタンプ<span id="stamp">0</span>
+                        </div>
+                        <div>
+                            画像・動画<span id="media">0</span>
+                        </div>
+                    </div>
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        送信文字数<span id="letters">0</span>
+                    </div>
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        送信一回あたりの平均文字数<br>
+                        <span id="averageLetters">0文字</span>
+                    </div>
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        使用漢字ランキング<br>
+                        <span id="kanji"></span>
+                    </div>
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        句読点使用数<br>
+                        <span id="punctuation">
+                            読点 、 0回<br>
+                            句点 。 0回<br>句読点　0回
+                        </span>
+                    </div>
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        最多連続発言<span id="maxChain">0回</span>
+                    </div>
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        平均連続発言<span id="averageChain">0回</span>
+                    </div>
+                </div>
+                <div style="width: 100%;">
+                    <!--<div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+    <div>メンションした数<span id="doMention">466回</span></div>
+    
+    
+<div>メンションした数(@all除く)<span id="doMentionEx">43回</span></div><div>メンションされた数<span id="beDoneMention">15回</span></div><div>メンションされた数(@all除く)<span id="beDoneMentionEx">4回</span></div></div>-->
+                    <div style="
+border: var(--var-color) 2px solid;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+">
+                        よく使う時間帯
+  
+                        <div id="activeTime">
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">0時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">1時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">2時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">3時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">4時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">5時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">6時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">7時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">8時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">9時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">10時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">11時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">12時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">13時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">14時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">15時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">16時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">17時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">18時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">19時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">20時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">21時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">22時 0回 0%</div>
+                            <div style="
+    background: red;
+    width: 0%;
+    white-space: nowrap;
+    color: black;
+">23時 0回 0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            class Statistics {
+                getSend(data, user) {
+                    let count = 0;
+                    data.map((message)=>{
+                        let name = message[1];
+                        if (name == user)
+                            count++;
+                    }
+                    );
+
+                    return count;
+                }
+
+                getSendOnlyText(data, user) {
+                    let count = 0;
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user && (text != '[写真]' && text != '[動画]'))
+                            count++;
+                    }
+                    );
+
+                    return count;
+                }
+
+                getStamp(data, user) {
+                    let count = 0;
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user && text == '[スタンプ]')
+                            count++;
+                    }
+                    );
+
+                    return count;
+                }
+
+                getMedia(data, user) {
+                    let count = 0;
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user && (text == '[写真]' || text == '[動画]'))
+                            count++;
+                    }
+                    );
+
+                    return count;
+                }
+
+                getLetters(data, user) {
+                    let count = 0;
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user && (text != '[写真]' && text != '[動画]'))
+                            count += text.length;
+                    }
+                    );
+
+                    return count;
+                }
+
+                getKanjiList(data, user) {
+                    let chainText = '';
+                    let kanjiText = '';
+
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user && /^\[.+\]$/.test(text))
+                            chainText += text;
+                    }
+                    );
+
+                    [...chainText].map((c)=>{
+                        kanjiText += c.match(/[\u2E80-\u2FDF々〇〻\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]/) ?? '';
+                    }
+                    )
+                    kanjiText = kanjiText
+                    //.replaceAll('、','').replaceAll('。','').replaceAll('〜','').replaceAll('「','').replaceAll('」','').replaceAll('・','').replaceAll('【','').replaceAll('】','').replaceAll('《','').replaceAll('》','').replaceAll('『','').replaceAll('』','');
+
+                    // 使われた漢字の一覧(重複なし)
+                    let kanjiArray = [];
+                    let exist = false;
+                    [...kanjiText].map((kanji)=>{
+                        exist = kanjiArray.includes(kanji);
+                        if (!exist) {
+                            kanjiArray.push(kanji);
+                        }
+                    }
+                    );
+
+                    // [漢字,回数] の一覧の配列
+                    let kanjiStatistic = [];
+                    kanjiArray.map((kanji)=>{
+                        try {
+                            // 漢字の出現回数
+                            let num = (kanjiText.match(new RegExp(kanji,'g')) || []).length;
+                            kanjiStatistic.push([kanji, num]);
+                        } catch {}
+                    }
+                    )
+
+                    return kanjiStatistic.sort(function(a, b) {
+                        return (b[1] - a[1]);
+                    });
+                }
+
+                getPunctuation(data, user) {
+                    let chainText = '';
+
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user && (text != '[写真]' && text != '[動画]'))
+                            chainText += text;
+                    }
+                    );
+
+                    let touten = (chainText.match(new RegExp('、','g')) || []).length;
+                    let kuten = (chainText.match(new RegExp('。','g')) || []).length;
+                    let sum = touten + kuten;
+
+                    return [touten, kuten, sum];
+                }
+
+                /*getDoMention(data, user) {
+        let count = 0;
+        let countEx = 0;
+        data.map((message) => {
+            let name = message[1];
+            let text = message[2];
+            if(name == user) {
+                getUsers(data).map((uname) => {
+                    if(text.includes(`@${uname}`)) {
+                        count++;
+                        countEx++;
+                    }
+                    if(text.includes(`@All`)) {
+                        count++;
+                    }
+                })
+            }
+        });
+
+        return [count, countEx];
+    }
+
+    getBeDoneMention(data, user) {
+        let count = 0;
+        let countEx = 0;
+        data.map((message) => {
+            let name = message[1];
+            let text = message[2];
+            if(name != user) {
+                if(text.includes(`@${user}`)) {
+                    count++;
+                    countEx++;
+                    message;
+                }
+                if(text.includes(`@All`)) {
+                    count++;
+                }
+            }
+        });
+
+        return [count, countEx];
+    }*/
+
+                getMaxCombo(data, user) {
+                    let max = 0;
+                    let now = 0;
+
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user) {
+                            now++;
+                        } else {
+                            max = now > max ? now : max;
+                            now = 0;
+                        }
+                    }
+                    );
+
+                    return max;
+                }
+
+                getAverageCombo(data, user) {
+                    let arr = [];
+                    let now = 0;
+                    let same = true;
+
+                    data.map((message)=>{
+                        let name = message[1];
+                        let text = message[2];
+                        if (name == user) {
+                            now++;
+                            same = false;
+                        } else {
+                            if (!same) {
+                                arr.push(now);
+                                now = 0;
+                            }
+                            same = true;
+                        }
+                    }
+                    );
+
+                    let sum = 0;
+                    arr.map((n)=>{
+                        sum += n;
+                    }
+                    );
+
+                    return sum / arr.length;
+                }
+
+                getActiveTime(data, user) {
+                    let timeArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    data.map((message)=>{
+                        let name = message[1];
+                        let time = Number(message[0].slice(0, 2).replaceAll(':', ''));
+                        if (name == user)
+                            timeArray[time]++;
+                    }
+                    );
+
+                    let sum = 0;
+                    timeArray.map((n)=>{
+                        sum += n;
+                    }
+                    )
+
+                    let output = [];
+                    timeArray.map((n)=>{
+                        output.push([n, n / sum]);
+                    }
+                    )
+                    return output;
+                }
+            }
+
+            let original = '';
+            let array = [];
+            let statistics
+            const fileInput = document.getElementById('fileInput');
+
+            fileInput.addEventListener('change', (e)=>{
+                const file = e.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = ()=>{
+                    original = reader.result;
+
+                    array = initialData(original);
+                    statistics = new Statistics();
+
+                    document.getElementById('usersArea').innerHTM = '';
+
+                    getUsers(array).map((a)=>{
+                        let button = document.createElement('div');
+                        button.style.width = 'max-content';
+                        button.style.background = 'black';
+                        button.style.color = 'white';
+                        button.style.padding = '3px 30px';
+                        button.style.border = '2px solid gray';
+                        button.style.borderRadius = '10px';
+                        button.style.cursor = 'pointer';
+                        button.style.marginBottom = '3px';
+                        button.innerText = a;
+                        button.onclick = (e)=>{
+                            show(e.currentTarget.innerText);
+                        }
+                        ;
+                        document.getElementById('usersArea').appendChild(button);
+                    }
+                    );
+
+                    document.getElementById('usersAreaContainer').style.visibility = 'visible';
+                }
+                ;
+
+                reader.readAsText(file);
+            }
+            );
+
+            function show(target) {
+                document.getElementById('dialog').style.visibility = 'hidden';
+                document.getElementById('usersAreaContainer').style.visibility = 'hidden';
+                // ユーザー名
+                document.getElementById('name').innerText = target;
+                // 発言数
+                document.getElementById('send').innerText = statistics.getSend(array, target);
+                // スタンプ
+                document.getElementById('stamp').innerText = statistics.getStamp(array, target);
+                // メディア
+                document.getElementById('media').innerText = statistics.getMedia(array, target);
+                // 文字数
+                document.getElementById('letters').innerText = statistics.getLetters(array, target);
+                // 平均文字数
+                document.getElementById('averageLetters').innerText = Math.floor(statistics.getLetters(array, target) / statistics.getSendOnlyText(array, target) * 1000) / 1000 + '文字';
+                // 使用漢字ランキング
+                let kanjiList = statistics.getKanjiList(array, target);
+                document.getElementById('kanji').innerText = ''
+                for (let i = 0; i < Math.min(10, kanjiList.length); i++) {
+                    document.getElementById('kanji').innerText += `${i + 1}位: ${kanjiList[i][0]} ${kanjiList[i][1]}回
+        `;
+                }
+                // 句読点
+                let punctuation = statistics.getPunctuation(array, target);
+                document.getElementById('punctuation').innerText = `読点 、 ${punctuation[0]}回
+    句点 。 ${punctuation[1]}回
+    句読点　${punctuation[2]}回`;
+                // メンション
+                // let doNum = statistics.getDoMention(array, target);
+                // let beDoneNum = statistics.getBeDoneMention(array, target);
+                // document.getElementById('doMention').innerText = `${doNum[0]}回`;
+                // document.getElementById('doMentionEx').innerText = `${doNum[1]}回`;
+                // document.getElementById('beDoneMention').innerText = `${beDoneNum[0]}回`;
+                // document.getElementById('beDoneMentionEx').innerText = `${beDoneNum[1]}回`;
+                // 最多連続発言
+                document.getElementById('maxChain').innerText = statistics.getMaxCombo(array, target) + '回';
+                // 平均連続発言
+                document.getElementById('averageChain').innerText = Math.floor(statistics.getAverageCombo(array, target) * 1000) / 1000 + '回';
+                // 時間帯
+                document.getElementById('activeTime').innerHTML = '';
+                statistics.getActiveTime(array, target).map((a,b)=>{
+                    document.getElementById('activeTime').innerHTML += `<div style="
+        background: red;
+        width: ${a[1] * 100}%;
+        white-space: nowrap;
+        color: black;
+    ">${b}時 ${a[0]}回 ${Math.floor(a[1] * 1000) / 10}%</div>`;
+                }
+                );
+            }
+
+            function getUsers(data) {
+                let users = [];
+                let exist = false;
+                data.map((message)=>{
+                    exist = users.includes(message[1]);
+                    if (!exist) {
+                        users.push(message[1]);
+                    }
+                }
+                );
+                return users;
+            }
+
+            function initialData(data) {
+                // data1 元データからはじめ2行を削除
+                let data1 = '';
+                data.split('\n').map((e,f)=>{
+                    if (f > 1) {
+                        data1 += e + "\n"
+                    }
+                }
+                );
+                data1 = data1.slice(0, -1);
+
+                // data2 日付・空行を除外
+                let data2 = '';
+                let dateExp = /20[0-9]{2}\/[0-9]{1,2}\/[0-9]{1,2}\(.\)/;
+                data1.split('\n').map((e)=>{
+                    if (!(e == "" || dateExp.test(e))) {
+                        data2 += e + "\n";
+                    }
+                }
+                );
+                data2 = data2.slice(0, -1);
+
+                // data3 メッセージを配列に格納
+                let data3 = [];
+                let firstMessageExp = /[0-9]{1,2}:[0-9]{2}\t.*\t.*/;
+                data2.split('\n').map((e)=>{
+                    if (firstMessageExp.test(e)) {
+                        data3[data3.length] = e.split('\t');
+                    } else {
+                        data3[data3.length - 1][2] += '\n' + e;
+                    }
+                }
+                );
+
+                // data4 特殊メッセージを除外
+                //
+                // 「^グループ通話が終了しました。$」を除外
+                // 「^グループ音声通話が開始されました。$」を除外
+                // 「^.*がアルバムにコンテンツを追加しました$」を除外
+                let data4 = [];
+                data4 = data3.filter((e)=>{
+                    return (!/^グループ通話が終了しました。$/.test(e[2]) && !/^グループ音声通話が開始されました。$/.test(e[2]) && !/^.+がアルバムにコンテンツを追加しました$/.test(e[2]) && !/^\[.+\]$/.test(e[2]))
+                }
+                );
+
+                return data4;
+            }
+            // SHA256
+            // 21d29db46f3c2c5e34b8abd3cfe5e8a0b58df26e458df5cee3002d2d44308907
+        </script>
+    </body>
+</html>
