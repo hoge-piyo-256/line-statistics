@@ -392,7 +392,7 @@ margin: 10px;
                     data.map((message)=>{
                         let name = message[1];
                         let text = message[2];
-                        if (name == user && /^\[.+\]$/.test(text))
+                        if (name == user && !/^\[.+\]$/.test(text))
                             chainText += text;
                     }
                     );
@@ -401,7 +401,6 @@ margin: 10px;
                         kanjiText += c.match(/[\u2E80-\u2FDF々〇〻\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]/) ?? '';
                     }
                     )
-                    kanjiText = kanjiText
                     //.replaceAll('、','').replaceAll('。','').replaceAll('〜','').replaceAll('「','').replaceAll('」','').replaceAll('・','').replaceAll('【','').replaceAll('】','').replaceAll('《','').replaceAll('》','').replaceAll('『','').replaceAll('』','');
 
                     // 使われた漢字の一覧(重複なし)
