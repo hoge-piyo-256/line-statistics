@@ -660,15 +660,20 @@ margin: 10px;
                 document.getElementById('averageChain').innerText = Math.floor(statistics.getAverageCombo(array, target) * 1000) / 1000 + '回';
                 // 時間帯
                 document.getElementById('activeTime').innerHTML = '';
-                statistics.getActiveTime(array, target).map((a,b)=>{
+                activeTimeArray = statistics.getActiveTime(array, target);
+                let maxOfActiveTime = activeTimeArray.map((a) => {
+                    return a[0];
+                }).reduce((a,b) => {
+                    return Math.max(a,b);
+                });
+                activeTimeArray.map((a,b)=>{
                     document.getElementById('activeTime').innerHTML += `<div style="
-        background: red;
-        width: ${a[1] * 100}%;
-        white-space: nowrap;
-        color: black;
-    ">${b}時 ${a[0]}回 ${Math.floor(a[1] * 1000) / 10}%</div>`;
-                }
-                );
+                        background: red;
+                        width: ${a[0] / maxOfActiveTime * 100}%;
+                        white-space: nowrap;
+                        color: black;
+                    ">${b}時 ${a[0]}回 ${Math.floor(a[1] * 1000) / 10}%</div>`;
+                });
             }
 
             function getUsers(data) {
